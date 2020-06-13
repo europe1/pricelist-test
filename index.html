@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Pricelist</title>
+    <style>
+    body {
+      margin: 5px;
+      font-family: Arial, sans-serif;
+    }
+
+    table {
+      border-collapse: collapse;
+    }
+
+    input {
+      max-width: 50px;
+    }
+
+    .red {
+      background-color: firebrick;
+    }
+
+    .green {
+      background-color: palegreen;
+    }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="script.js"></script>
+  </head>
+  <body>
+    <p><form id="filter">
+      Показать товары, у которых
+      <select name="price_type">
+        <option value="1">Розничная цена</option>
+        <option value="2">Оптовая цена</option>
+      </select>
+      от
+      <input name="min_price">
+      до
+      <input name="max_price">
+      рублей и на складе
+      <select name="compare">
+        <option value="1">Более</option>
+        <option value="2">Менее</option>
+      </select>
+      <input name="quantity">
+      <button>Показать товары</button>
+    </form></p>
+    <table border=1>
+      <thead>
+        <tr>
+          <th>Наименование товара</th>
+          <th>Стоимость, руб</th>
+          <th>Стоимость опт, руб</th>
+          <th>Наличие на складе 1, шт</th>
+          <th>Наличие на складе 2, шт</th>
+          <th>Страна производства</th>
+          <th>Примечание</th>
+        </tr>
+      </thead>
+      <tbody id="table">
+      </tbody>
+    </table>
+    <br>
+    <table border=1>
+      <tr>
+        <td>Общее количество товаров на складе 1</td>
+        <td id="total1"></td>
+      </tr>
+      <tr>
+        <td>Общее количество товаров на складе 2</td>
+        <td id="total2"></td>
+      </tr>
+      <tr>
+        <td>Средняя стоимость розничной цены товара</td>
+        <td id="avgPrice"></td>
+      </tr>
+      <tr>
+        <td>Средняя стоимость оптовой цены товара</td>
+        <td id="avgPriceBulk"></td>
+      </tr>
+    </table>
+  </body>
+</html>
