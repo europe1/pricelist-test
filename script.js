@@ -1,10 +1,12 @@
 $(function() {
   $.get("table.php", function(data) {
-    renderTable(data);
-    $("#total1").text(data["totalStorage1"]);
-    $("#total2").text(data["totalStorage2"]);
-    $("#avgPrice").text(data["avgPrice"]);
-    $("#avgPriceBulk").text(data["avgPriceBulk"]);
+    if (data["ok"]) {
+      renderTable(data);
+      $("#total1").text(data["totalStorage1"]);
+      $("#total2").text(data["totalStorage2"]);
+      $("#avgPrice").text(data["avgPrice"]);
+      $("#avgPriceBulk").text(data["avgPriceBulk"]);
+    }
   });
 
   $("#filter").submit(e => {
@@ -12,8 +14,13 @@ $(function() {
 
     const formData = $("#filter").serialize();
     $.get("table.php", formData, function(data) {
-      $("#table").empty();
-      renderTable(data);
+      if (data["ok"]) {
+        $("#table").empty();
+        $("#error").empty();
+        renderTable(data);
+      } else {
+        $("#error").text(data["errorText"]);
+      }
     });
   });
 });

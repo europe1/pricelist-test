@@ -18,17 +18,25 @@
     }
 
     .red {
-      background-color: firebrick;
+      background-color: tomato;
     }
 
     .green {
       background-color: palegreen;
+    }
+
+    .error {
+      text-align: center;
+      background-color: lightcoral;
+      color: firebrick;
+      border-radius: 3px;
     }
     </style>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="script.js"></script>
   </head>
   <body>
+    <div class="error" id="error"></div>
     <p><form id="filter">
       Показать товары, у которых
       <select name="price_type">

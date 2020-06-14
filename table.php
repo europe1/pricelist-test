@@ -11,7 +11,13 @@ if (isset($_GET["price_type"]) &&
   $compare = $_GET["compare"] == 2 ? "<" : ">";
   $quantity = $_GET["quantity"];
 
-  $query = "SELECT * FROM pricelist WHERE " . $type . " BETWEEN " . $min_price . 
+  if (empty($min_price) || empty($max_price) || empty($quantity) ||
+    !(is_numeric($min_price) && is_numeric($max_price) && is_numeric($quantity))) {
+    error_response("Все поля должны быть численными");
+    die();
+  }
+
+  $query = "SELECT * FROM pricelist WHERE " . $type . " BETWEEN " . $min_price .
   " AND " . $max_price . " AND (quantity_1 + quantity_2) " . $compare . " " . $quantity;
 }
 
@@ -58,8 +64,22 @@ if ($result->num_rows > 0) {
   $response["avgPriceBulk"] = round($total_price_bulk / $total_items, 2);
 
   $response["data"] = $temp_table;
+  $response["ok"] = TRUE;
 
+  json_response($response);
+} else {
+  error_response("Позиций не найдено");
+}
+
+function json_response($resp) {
   header("Content-Type: application/json");
-  echo json_encode($response);
+  echo json_encode($resp);
+}
+
+function error_response($text) {
+  $response = array();
+  $response["ok"] = FALSE;
+  $response["errorText"] = $text;
+  json_response($response);
 }
 ?>
